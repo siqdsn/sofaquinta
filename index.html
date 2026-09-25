@@ -270,6 +270,17 @@ button.hist:active{background:var(--surface2)}
   .logo{width:34px;height:34px}
   .row .pl .av{display:none}
 }
+
+/* Compartilhar ------------------------------------------------------ */
+.sharebtn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:48px;border-top:1px solid var(--line);font-size:13.5px;font-weight:700;color:var(--accent-text);transition:background .12s}
+.sharebtn:active{background:var(--surface2)}
+.shbody{padding:0 18px 18px}
+.shseg{padding:0 0 12px}
+.shprev{border-radius:14px;background:repeating-conic-gradient(#171a21 0 25%,#1c2029 0 50%) 0 0/20px 20px;padding:10px;min-height:120px;display:grid;place-items:center}
+.shprev img{display:block;width:100%;aspect-ratio:1600/1000;border-radius:10px;transition:opacity .2s;background:transparent}
+.shbtns{display:grid;gap:8px;margin-top:14px}
+.btn.alt{background:var(--surface2);color:var(--text)}
+.shprev.clear{background:linear-gradient(135deg,#3a6b8f,#c7743f 55%,#2d3b2a)}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -364,6 +375,7 @@ button.hist:active{background:var(--surface2)}
 </main>
 
 <div class="modal" id="modal" hidden><div class="sheet" id="sheet"></div></div>
+<div class="modal" id="share" hidden><div class="sheet" id="shsheet"></div></div>
 <div class="modal" id="confirm" hidden><div class="sheet" id="csheet"></div></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <input type="file" id="file" accept="image/*,.heic,.heif" hidden>
@@ -672,6 +684,7 @@ function renderRounds(ds) {
         </button>`;
       }).join('')}
       ${absent.length ? `<div class="absent">Não lançou: ${absent.join(', ')}</div>` : ''}
+      <button class="sharebtn" data-share="${d}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Baixar resumo da rodada</button>
     </div>`;
   }).join('');
 }
@@ -1067,6 +1080,305 @@ function ask(title, text, okLabel) {
   });
 }
 document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && state.modalId && $('#confirm').hidden) closePlayer(); });
+
+/* ---------- card para Instagram (PNG) ---------- */
+const CARD_W = 1600, CARD_H = 1000, CARD_R = 64;
+const BALL_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="70 70 372 372"><defs><clipPath id="sbc"><circle cx="256" cy="256" r="178"/></clipPath><radialGradient id="ssh" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#fff"/><stop offset=".75" stop-color="#f1f3f8"/><stop offset="1" stop-color="#d5dae6"/></radialGradient></defs><circle cx="256" cy="256" r="178" fill="url(#ssh)"/><g clip-path="url(#sbc)"><polygon points="256.0,204.0 305.5,239.9 286.6,298.1 225.4,298.1 206.5,239.9" fill="#141821" stroke="#141821" stroke-width="5" stroke-linejoin="round"/><polygon points="256.0,145.9 206.5,110.0 225.4,51.9 286.6,51.9 305.5,110.0" fill="#141821" stroke="#141821" stroke-width="5" stroke-linejoin="round"/><line x1="256.0" y1="204.0" x2="256.0" y2="145.9" stroke="#141821" stroke-width="9" stroke-linecap="round"/><polygon points="360.7,222.0 379.6,163.8 440.7,163.8 459.6,222.0 410.1,257.9" fill="#141821" stroke="#141821" stroke-width="5" stroke-linejoin="round"/><line x1="305.5" y1="239.9" x2="360.7" y2="222.0" stroke="#141821" stroke-width="9" stroke-linecap="round"/><polygon points="320.7,345.1 381.8,345.1 400.7,403.2 351.3,439.1 301.8,403.2" fill="#141821" stroke="#141821" stroke-width="5" stroke-linejoin="round"/><line x1="286.6" y1="298.1" x2="320.7" y2="345.1" stroke="#141821" stroke-width="9" stroke-linecap="round"/><polygon points="191.3,345.1 210.2,403.2 160.7,439.1 111.3,403.2 130.2,345.1" fill="#141821" stroke="#141821" stroke-width="5" stroke-linejoin="round"/><line x1="225.4" y1="298.1" x2="191.3" y2="345.1" stroke="#141821" stroke-width="9" stroke-linecap="round"/><polygon points="151.3,222.0 101.9,257.9 52.4,222.0 71.3,163.8 132.4,163.8" fill="#141821" stroke="#141821" stroke-width="5" stroke-linejoin="round"/><line x1="206.5" y1="239.9" x2="151.3" y2="222.0" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="305.5" y1="110.0" x2="366.4" y2="104.0" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="379.6" y1="163.8" x2="366.4" y2="104.0" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="366.4" y1="104.0" x2="371.1" y2="97.6" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="410.1" y1="257.9" x2="434.6" y2="314.0" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="381.8" y1="345.1" x2="434.6" y2="314.0" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="434.6" y1="314.0" x2="442.2" y2="316.5" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="301.8" y1="403.2" x2="256.0" y2="443.8" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="210.2" y1="403.2" x2="256.0" y2="443.8" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="256.0" y1="443.8" x2="256.0" y2="451.8" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="130.2" y1="345.1" x2="77.4" y2="314.0" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="101.9" y1="257.9" x2="77.4" y2="314.0" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="77.4" y1="314.0" x2="69.8" y2="316.5" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="132.4" y1="163.8" x2="145.6" y2="104.0" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="206.5" y1="110.0" x2="145.6" y2="104.0" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="145.6" y1="104.0" x2="140.9" y2="97.6" stroke="#141821" stroke-width="9" stroke-linecap="round"/></g></svg>`;
+let ballImg = null;
+const THEMES = {
+  dark:  { clear: false, text: '#fff', soft: '#c9ced8', muted: '#8b93a3', faint: '#5d6574', line: 'rgba(255,255,255,.07)', accent: '#aab4ff', brand2: '#8b9aff', gold: '#f5b400' },
+  clear: { clear: true,  text: '#fff', soft: '#fff', muted: 'rgba(255,255,255,.86)', faint: 'rgba(255,255,255,.8)', line: 'rgba(255,255,255,.45)', accent: '#fff', brand2: '#fff', gold: '#fff' }
+};
+let T = THEMES.dark;
+
+function loadImage(src) {
+  return new Promise((ok, fail) => { const i = new Image(); i.onload = () => ok(i); i.onerror = fail; i.src = src; });
+}
+async function getBall() {
+  if (!ballImg) ballImg = await loadImage('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(BALL_SVG)).catch(() => null);
+  return ballImg;
+}
+function rr(ctx, x, y, w, h, r) {
+  r = Math.min(r, w / 2, h / 2);
+  ctx.beginPath();
+  ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+}
+function font(size, weight = 700) { return `${weight} ${size}px Inter, system-ui, -apple-system, sans-serif`; }
+function fit(ctx, text, maxW, size, weight = 800, min = 18) {
+  let s = size;
+  ctx.font = font(s, weight);
+  while (ctx.measureText(text).width > maxW && s > min) { s -= 2; ctx.font = font(s, weight); }
+  if (ctx.measureText(text).width > maxW) {           // ainda grande: corta com reticências
+    let t = text;
+    while (t.length > 1 && ctx.measureText(t + '…').width > maxW) t = t.slice(0, -1);
+    return t + '…';
+  }
+  return text;
+}
+function spaced(ctx, px) { if ('letterSpacing' in ctx) ctx.letterSpacing = px + 'px'; }
+async function drawAvatar(ctx, p, x, y, d) {
+  ctx.save();
+  ctx.beginPath(); ctx.arc(x + d / 2, y + d / 2, d / 2, 0, Math.PI * 2); ctx.closePath(); ctx.clip();
+  let img = null;
+  if (safePhoto(p.photo)) img = await loadImage(p.photo).catch(() => null);
+  if (img) ctx.drawImage(img, x, y, d, d);
+  else {
+    if (T.clear) { ctx.fillStyle = 'rgba(255,255,255,.12)'; ctx.fillRect(x, y, d, d); }
+    else { ctx.fillStyle = COLORS[(p.id - 1) % COLORS.length]; ctx.fillRect(x, y, d, d); }
+    ctx.fillStyle = '#fff'; ctx.font = font(Math.round(d * 0.36), 800);
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(initials(p.name), x + d / 2, y + d / 2 + d * 0.02);
+  }
+  ctx.restore();
+  if (T.clear) { ctx.beginPath(); ctx.arc(x + d / 2, y + d / 2, d / 2, 0, Math.PI * 2); ctx.lineWidth = Math.max(3, d * 0.025); ctx.strokeStyle = '#fff'; ctx.stroke(); }
+}
+function ring(ctx, cx, cy, r, color) {
+  ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  if (T.clear) { ctx.lineWidth = 5; ctx.strokeStyle = '#fff'; ctx.stroke(); }
+  else { ctx.fillStyle = color; ctx.fill(); }
+}
+function panel(ctx, x, y, w, h, r, fill, stroke) {
+  rr(ctx, x, y, w, h, r);
+  if (T.clear) { ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(255,255,255,.9)'; ctx.stroke(); return; }
+  ctx.fillStyle = fill; ctx.fill(); if (stroke) { ctx.lineWidth = 2; ctx.strokeStyle = stroke; ctx.stroke(); }
+}
+function drawRate(ctx, r, xRight, yMid, h, fs, center) {
+  const txt = r.toFixed(1).replace('.', ',');
+  ctx.font = font(fs, 800);
+  const w = Math.max(h * 1.55, ctx.measureText(txt).width + h * 0.6);
+  if (center) xRight += w / 2;
+  rr(ctx, xRight - w, yMid - h / 2, w, h, h * 0.24);
+  if (T.clear) { ctx.lineWidth = Math.max(3, h * 0.05); ctx.strokeStyle = '#fff'; ctx.stroke(); }
+  else { ctx.fillStyle = rateColor(r); ctx.fill(); }
+  ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText(txt, xRight - w / 2, yMid + fs * 0.04);
+  return w;
+}
+async function cardBase(ctx, rightTop, rightBottom) {
+  ctx.clearRect(0, 0, CARD_W, CARD_H);
+  const ball = await getBall();
+  ctx.save();
+  if (T.clear) { ctx.shadowColor = 'rgba(0,0,0,.28)'; ctx.shadowBlur = 12; ctx.shadowOffsetY = 2; }
+  if (T.clear) {
+    rr(ctx, 3, 3, CARD_W - 6, CARD_H - 6, CARD_R); ctx.lineWidth = 4; ctx.strokeStyle = '#fff';
+    ctx.shadowColor = 'rgba(0,0,0,.35)'; ctx.shadowBlur = 14; ctx.stroke();
+  } else {
+  rr(ctx, 0, 0, CARD_W, CARD_H, CARD_R); ctx.clip();
+  const bg = ctx.createLinearGradient(0, 0, CARD_W, CARD_H);
+  bg.addColorStop(0, '#151a2b'); bg.addColorStop(.55, '#0f1218'); bg.addColorStop(1, '#0b0d12');
+  ctx.fillStyle = bg; ctx.fillRect(0, 0, CARD_W, CARD_H);
+  const glow = ctx.createRadialGradient(260, 120, 0, 260, 120, 900);
+  glow.addColorStop(0, 'rgba(55,77,245,.42)'); glow.addColorStop(1, 'rgba(55,77,245,0)');
+  ctx.fillStyle = glow; ctx.fillRect(0, 0, CARD_W, CARD_H);
+  if (ball) { ctx.globalAlpha = .045; ctx.drawImage(ball, CARD_W - 520, CARD_H - 470, 720, 720); ctx.globalAlpha = 1; }
+  rr(ctx, 70, 62, 76, 76, 20); ctx.fillStyle = '#374df5'; ctx.fill();
+  }
+  // cabeçalho
+  if (ball) ctx.drawImage(ball, T.clear ? 72 : 78, T.clear ? 64 : 70, T.clear ? 72 : 60, T.clear ? 72 : 60);
+  ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic'; spaced(ctx, 1);
+  ctx.font = font(44, 800); ctx.fillStyle = T.text; ctx.fillText('SOFA', 170, 116);
+  const w = ctx.measureText('SOFA').width;
+  ctx.fillStyle = T.brand2; ctx.fillText('QUINTA', 170 + w, 116);
+  ctx.textAlign = 'right';
+  spaced(ctx, 3); ctx.font = font(26, 800); ctx.fillStyle = T.accent; ctx.fillText(rightTop.toUpperCase(), CARD_W - 70, 92);
+  spaced(ctx, 0); ctx.font = font(26, 500); ctx.fillStyle = T.muted; ctx.fillText(rightBottom, CARD_W - 70, 130);
+}
+function cardFooter(ctx, left) {
+  ctx.fillStyle = T.clear ? T.line : 'rgba(255,255,255,.08)'; ctx.fillRect(70, 872, CARD_W - 140, 2);
+  ctx.textBaseline = 'middle'; spaced(ctx, 0);
+  ctx.textAlign = 'left'; ctx.font = font(28, 600); ctx.fillStyle = T.soft; ctx.fillText(left, 70, 930);
+  ctx.textAlign = 'right'; ctx.font = font(26, 600); ctx.fillStyle = T.faint;
+  ctx.fillText((location.host && !/^(localhost|127\.)/.test(location.host)) ? location.host : 'sofaquinta', CARD_W - 70, 930);
+  ctx.restore();
+}
+function roundInfo(d) {
+  const ds = dates();
+  return { n: ds.length - ds.indexOf(d), lines: roundLines(d) };
+}
+
+async function drawRoundCard(ctx, d) {
+  const { n, lines } = roundInfo(d);
+  await cardBase(ctx, `Rodada ${n}`, fmtLong(d));
+  const tops = craques(lines), top = tops[0] || lines[0];
+  // painel do craque
+  const px = 70, py = 180, pw = 560, ph = 650;
+  const pg = ctx.createLinearGradient(px, py, px, py + ph);
+  pg.addColorStop(0, 'rgba(245,180,0,.20)'); pg.addColorStop(1, 'rgba(245,180,0,.03)');
+  panel(ctx, px, py, pw, ph, 40, pg, 'rgba(245,180,0,.45)');
+  const cx = px + pw / 2;
+  ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+  spaced(ctx, 4); ctx.font = font(24, 800); ctx.fillStyle = T.gold;
+  ctx.fillText(tops.length ? '★ CRAQUE DA RODADA' : '★ DESTAQUE', cx, py + 68);
+  spaced(ctx, 0);
+  if (top) {
+    const D = 250;
+    ring(ctx, cx, py + 110 + D / 2, D / 2 + 8, 'rgba(245,180,0,.55)');
+    await drawAvatar(ctx, top.p, cx - D / 2, py + 110, D);
+    const nm = tops.length > 1 ? tops.map(t => first(t.p.name)).join(' e ') : top.p.name;
+    ctx.fillStyle = '#fff'; ctx.textAlign = 'center';
+    ctx.fillText(fit(ctx, nm, pw - 70, 54, 800, 30), cx, py + 438);
+    ctx.font = font(30, 600); ctx.fillStyle = T.soft;
+    ctx.fillText(`${plural(top.goals, 'gol', 'gols')} · ${plural(top.assists, 'assistência', 'assistências')}`, cx, py + 490);
+    ctx.font = font(22, 700); ctx.fillStyle = T.muted; spaced(ctx, 3); ctx.fillText('NOTA', cx, py + 552); spaced(ctx, 0);
+    drawRate(ctx, top.r, cx, py + 600, 76, 52, true);
+  }
+  // lista
+  const lx = 690, lw = CARD_W - 70 - lx, ly = 190;
+  ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+  spaced(ctx, 3); ctx.font = font(22, 800); ctx.fillStyle = T.muted;
+  ctx.fillText('JOGADOR', lx, ly + 24);
+  ctx.textAlign = 'right';
+  ctx.fillText('NOTA', lx + lw, ly + 24); ctx.fillText('A', lx + lw - 190, ly + 24); ctx.fillText('G', lx + lw - 270, ly + 24);
+  spaced(ctx, 0);
+  const rows = lines.slice(0, 7), avail = 620, rh = Math.min(122, avail / Math.max(rows.length, 1));
+  const ad = Math.min(80, rh - 26);
+  for (let i = 0; i < rows.length; i++) {
+    const l = rows[i], y = ly + 50 + i * rh, mid = y + rh / 2;
+    ctx.fillStyle = T.line; ctx.fillRect(lx, y, lw, 2);
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.font = font(28, 800);
+    ctx.fillStyle = T.clear ? '#fff' : i === 0 ? '#f5b400' : i === 1 ? '#b8c0cc' : i === 2 ? '#d0894b' : '#8b93a3';
+    ctx.fillText(String(i + 1), lx + 18, mid);
+    await drawAvatar(ctx, l.p, lx + 48, mid - ad / 2, ad);
+    ctx.textAlign = 'left'; ctx.fillStyle = T.text;
+    ctx.fillText(fit(ctx, l.p.name, lw - 48 - ad - 24 - 330, 36, 700, 22), lx + 48 + ad + 22, mid + 1);
+    ctx.textAlign = 'right'; ctx.font = font(38, 800); ctx.fillStyle = '#fff';
+    ctx.fillText(String(l.goals), lx + lw - 270, mid + 1);
+    ctx.fillText(String(l.assists), lx + lw - 190, mid + 1);
+    drawRate(ctx, l.r, lx + lw, mid, 58, 32);
+  }
+  if (lines.length > rows.length) {
+    ctx.textAlign = 'left'; ctx.font = font(24, 600); ctx.fillStyle = T.muted;
+    ctx.fillText(`+${lines.length - rows.length} jogadores`, lx, ly + 50 + rows.length * rh + 30);
+  }
+  const g = lines.reduce((t, l) => t + l.goals, 0), a = lines.reduce((t, l) => t + l.assists, 0);
+  cardFooter(ctx, `${plural(g, 'gol', 'gols')}  ·  ${plural(a, 'assistência', 'assistências')}  ·  ${plural(lines.length, 'jogador', 'jogadores')}`);
+}
+
+async function drawPlayerCard(ctx, d, pid) {
+  const { n, lines } = roundInfo(d);
+  const l = lines.find(x => x.player_id === pid);
+  const tops = new Set(craques(lines).map(x => x.player_id));
+  const pos = lines.indexOf(l) + 1;
+  await cardBase(ctx, `Rodada ${n}`, fmtLong(d));
+  // foto grande
+  const D = 470, x0 = 110, y0 = 245;
+  ring(ctx, x0 + D / 2, y0 + D / 2, D / 2 + 10, tops.has(pid) ? 'rgba(245,180,0,.7)' : 'rgba(55,77,245,.8)');
+  await drawAvatar(ctx, l.p, x0, y0, D);
+  // texto
+  const tx = 680, tw = CARD_W - 70 - tx;
+  ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+  if (tops.has(pid)) {
+    spaced(ctx, 4); ctx.font = font(24, 800);
+    const label = '★ CRAQUE DA RODADA', lw2 = ctx.measureText(label).width + 44;
+    panel(ctx, tx, 205, lw2, 54, 27, 'rgba(245,180,0,.16)', 'rgba(245,180,0,.5)');
+    ctx.fillStyle = T.gold; ctx.fillText(label, tx + 22, 241); spaced(ctx, 0);
+  } else {
+    spaced(ctx, 4); ctx.font = font(24, 800); ctx.fillStyle = T.muted;
+    ctx.fillText(`${pos}º DA RODADA`, tx, 241); spaced(ctx, 0);
+  }
+  ctx.fillStyle = '#fff';
+  ctx.fillText(fit(ctx, l.p.name, tw, 88, 800, 44), tx, 350);
+  // stats
+  const sy = 420, sh = 380, gap = 26, sw = (tw - gap * 2) / 3;
+  const blocks = [['GOLS', String(l.goals)], ['ASSIST.', String(l.assists)], ['NOTA', null]];
+  for (let i = 0; i < 3; i++) {
+    const bx = tx + i * (sw + gap);
+    panel(ctx, bx, sy, sw, sh, 32, 'rgba(255,255,255,.055)', 'rgba(255,255,255,.08)');
+    ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+    spaced(ctx, 3); ctx.font = font(24, 800); ctx.fillStyle = T.muted; ctx.fillText(blocks[i][0], bx + sw / 2, sy + 70); spaced(ctx, 0);
+    if (blocks[i][1] != null) {
+      ctx.font = font(190, 800); ctx.fillStyle = '#fff'; ctx.fillText(blocks[i][1], bx + sw / 2, sy + 300);
+    } else {
+      drawRate(ctx, l.r, bx + sw / 2, sy + 225, 118, 80, true);
+    }
+  }
+  const s = aggregate().find(x => x.id === pid);
+  cardFooter(ctx, s ? `Temporada: ${plural(s.g, 'gol', 'gols')} · ${plural(s.a, 'assistência', 'assistências')} · ${plural(s.j, 'jogo', 'jogos')}` : '');
+}
+
+const share = { date: null, kind: 'round', style: store.get('sofaquinta-card-style') === 'dark' ? 'dark' : 'clear', blob: null, url: null };
+async function renderShareImage() {
+  const img = $('#shimg'), btns = document.querySelectorAll('#shsheet [data-sh]');
+  btns.forEach(b => b.disabled = true);
+  img.style.opacity = .35;
+  try {
+    if (document.fonts) await Promise.all([document.fonts.load(font(40, 800)), document.fonts.load(font(40, 700)), document.fonts.load(font(40, 600))]).catch(() => {});
+    const c = document.createElement('canvas'); c.width = CARD_W; c.height = CARD_H;
+    const ctx = c.getContext('2d');
+    T = THEMES[share.style];
+    $('#shprev').classList.toggle('clear', share.style === 'clear');
+    if (share.kind === 'me' && session) await drawPlayerCard(ctx, share.date, session.id);
+    else await drawRoundCard(ctx, share.date);
+    const blob = await new Promise(r => c.toBlob(r, 'image/png'));
+    if (!blob) throw new Error('png');
+    if (share.url) URL.revokeObjectURL(share.url);
+    share.blob = blob; share.url = URL.createObjectURL(blob);
+    img.src = share.url; img.style.opacity = 1;
+    btns.forEach(b => b.disabled = false);
+  } catch (e) { console.error(e); toast('Não consegui gerar a imagem', true); }
+}
+function shareName() {
+  const { n } = roundInfo(share.date);
+  return `sofaquinta-rodada-${n}${share.kind === 'me' && session ? '-' + norm(first(session.name)) : ''}${share.style === 'clear' ? '-transparente' : ''}-${share.date}.png`;
+}
+async function openShare(d) {
+  share.date = d;
+  const played = session && state.stats.some(s => s.player_id === session.id && s.match_date === d);
+  if (!played) share.kind = 'round';
+  const { n } = roundInfo(d);
+  const canFiles = (() => { try { return !!(navigator.canShare && navigator.canShare({ files: [new File([new Blob()], 'x.png', { type: 'image/png' })] })); } catch { return false; } })();
+  $('#shsheet').innerHTML = `
+    <div class="grab"></div>
+    <div class="shead"><div><h2>Resumo da rodada ${n}</h2><p>${fmtLong(d)}</p></div><button class="close" data-shclose aria-label="Fechar">✕</button></div>
+    <div class="shbody">
+      ${played ? `<div class="seg shseg"><button type="button" data-kind="round" class="${share.kind === 'round' ? 'on' : ''}">Rodada completa</button><button type="button" data-kind="me" class="${share.kind === 'me' ? 'on' : ''}">Meu card</button></div>` : ''}
+      <div class="seg shseg"><button type="button" data-style="clear" class="${share.style === 'clear' ? 'on' : ''}">Transparente (Strava)</button><button type="button" data-style="dark" class="${share.style === 'dark' ? 'on' : ''}">Fundo escuro</button></div>
+      <div class="shprev" id="shprev"><img id="shimg" alt="Prévia do card"></div>
+      <div class="shbtns">
+        ${canFiles ? '<button class="btn" data-sh="share" type="button">Compartilhar / Salvar na galeria</button>' : ''}
+        <button class="btn ${canFiles ? 'alt' : ''}" data-sh="dl" type="button">Baixar PNG</button>
+      </div>
+    </div>`;
+  lockScroll(true);
+  animateIn($('#share'));
+  renderShareImage();
+}
+function closeShare() {
+  animateOut($('#share')).then(() => { if (!state.modalId && $('#confirm').hidden) lockScroll(false); });
+}
+document.addEventListener('click', ev => {
+  const b = ev.target.closest('[data-share]'); if (!b) return;
+  ev.preventDefault(); ev.stopPropagation();
+  openShare(b.dataset.share);
+});
+$('#share').addEventListener('click', async ev => {
+  if (ev.target === ev.currentTarget || ev.target.closest('[data-shclose]')) { closeShare(); return; }
+  const k = ev.target.closest('[data-kind]');
+  if (k && k.dataset.kind !== share.kind) {
+    share.kind = k.dataset.kind;
+    $('#shsheet').querySelectorAll('[data-kind]').forEach(x => x.classList.toggle('on', x === k));
+    renderShareImage(); return;
+  }
+  const st = ev.target.closest('[data-style]');
+  if (st && st.dataset.style !== share.style) {
+    share.style = st.dataset.style; store.set('sofaquinta-card-style', share.style);
+    $('#shsheet').querySelectorAll('[data-style]').forEach(x => x.classList.toggle('on', x === st));
+    renderShareImage(); return;
+  }
+  const a = ev.target.closest('[data-sh]'); if (!a || !share.blob) return;
+  if (a.dataset.sh === 'share') {
+    const file = new File([share.blob], shareName(), { type: 'image/png' });
+    try { await navigator.share({ files: [file], title: 'SofaQuinta' }); }
+    catch (e) { if (e && e.name !== 'AbortError') toast('Não deu pra compartilhar. Use “Baixar PNG”.', true); }
+  } else {
+    const link = document.createElement('a');
+    link.href = share.url; link.download = shareName();
+    document.body.appendChild(link); link.click(); link.remove();
+    toast('Imagem baixada!');
+  }
+});
+document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && !$('#share').hidden) closeShare(); });
 
 /* ---------- início ---------- */
 (function init() {
