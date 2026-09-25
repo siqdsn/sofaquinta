@@ -277,7 +277,7 @@ button.hist:active{background:var(--surface2)}
 .shbody{padding:0 18px 18px}
 .shseg{padding:0 0 12px}
 .shprev{border-radius:14px;background:repeating-conic-gradient(#171a21 0 25%,#1c2029 0 50%) 0 0/20px 20px;padding:10px;min-height:120px;display:grid;place-items:center}
-.shprev img{display:block;width:100%;aspect-ratio:1600/1000;border-radius:10px;transition:opacity .2s;background:transparent}
+.shprev img{display:block;width:100%;aspect-ratio:1600/800;border-radius:10px;transition:opacity .2s;background:transparent}
 .shbtns{display:grid;gap:8px;margin-top:14px}
 .btn.alt{background:var(--surface2);color:var(--text)}
 .shprev.clear{background:linear-gradient(135deg,#3a6b8f,#c7743f 55%,#2d3b2a)}
@@ -1082,12 +1082,12 @@ function ask(title, text, okLabel) {
 document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && state.modalId && $('#confirm').hidden) closePlayer(); });
 
 /* ---------- card para Instagram (PNG) ---------- */
-const CARD_W = 1600, CARD_H = 1000, CARD_R = 64;
+const CARD_W = 1600, CARD_H = 800, CARD_R = 56, M = 64, LW = 5;   // LW = espessura única de todas as linhas
 const BALL_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="70 70 372 372"><defs><clipPath id="sbc"><circle cx="256" cy="256" r="178"/></clipPath><radialGradient id="ssh" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#fff"/><stop offset=".75" stop-color="#f1f3f8"/><stop offset="1" stop-color="#d5dae6"/></radialGradient></defs><circle cx="256" cy="256" r="178" fill="url(#ssh)"/><g clip-path="url(#sbc)"><polygon points="256.0,204.0 305.5,239.9 286.6,298.1 225.4,298.1 206.5,239.9" fill="#141821" stroke="#141821" stroke-width="5" stroke-linejoin="round"/><polygon points="256.0,145.9 206.5,110.0 225.4,51.9 286.6,51.9 305.5,110.0" fill="#141821" stroke="#141821" stroke-width="5" stroke-linejoin="round"/><line x1="256.0" y1="204.0" x2="256.0" y2="145.9" stroke="#141821" stroke-width="9" stroke-linecap="round"/><polygon points="360.7,222.0 379.6,163.8 440.7,163.8 459.6,222.0 410.1,257.9" fill="#141821" stroke="#141821" stroke-width="5" stroke-linejoin="round"/><line x1="305.5" y1="239.9" x2="360.7" y2="222.0" stroke="#141821" stroke-width="9" stroke-linecap="round"/><polygon points="320.7,345.1 381.8,345.1 400.7,403.2 351.3,439.1 301.8,403.2" fill="#141821" stroke="#141821" stroke-width="5" stroke-linejoin="round"/><line x1="286.6" y1="298.1" x2="320.7" y2="345.1" stroke="#141821" stroke-width="9" stroke-linecap="round"/><polygon points="191.3,345.1 210.2,403.2 160.7,439.1 111.3,403.2 130.2,345.1" fill="#141821" stroke="#141821" stroke-width="5" stroke-linejoin="round"/><line x1="225.4" y1="298.1" x2="191.3" y2="345.1" stroke="#141821" stroke-width="9" stroke-linecap="round"/><polygon points="151.3,222.0 101.9,257.9 52.4,222.0 71.3,163.8 132.4,163.8" fill="#141821" stroke="#141821" stroke-width="5" stroke-linejoin="round"/><line x1="206.5" y1="239.9" x2="151.3" y2="222.0" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="305.5" y1="110.0" x2="366.4" y2="104.0" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="379.6" y1="163.8" x2="366.4" y2="104.0" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="366.4" y1="104.0" x2="371.1" y2="97.6" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="410.1" y1="257.9" x2="434.6" y2="314.0" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="381.8" y1="345.1" x2="434.6" y2="314.0" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="434.6" y1="314.0" x2="442.2" y2="316.5" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="301.8" y1="403.2" x2="256.0" y2="443.8" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="210.2" y1="403.2" x2="256.0" y2="443.8" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="256.0" y1="443.8" x2="256.0" y2="451.8" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="130.2" y1="345.1" x2="77.4" y2="314.0" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="101.9" y1="257.9" x2="77.4" y2="314.0" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="77.4" y1="314.0" x2="69.8" y2="316.5" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="132.4" y1="163.8" x2="145.6" y2="104.0" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="206.5" y1="110.0" x2="145.6" y2="104.0" stroke="#141821" stroke-width="9" stroke-linecap="round"/><line x1="145.6" y1="104.0" x2="140.9" y2="97.6" stroke="#141821" stroke-width="9" stroke-linecap="round"/></g></svg>`;
 let ballImg = null;
 const THEMES = {
-  dark:  { clear: false, text: '#fff', soft: '#c9ced8', muted: '#8b93a3', faint: '#5d6574', line: 'rgba(255,255,255,.07)', accent: '#aab4ff', brand2: '#8b9aff', gold: '#f5b400' },
-  clear: { clear: true,  text: '#fff', soft: '#fff', muted: 'rgba(255,255,255,.86)', faint: 'rgba(255,255,255,.8)', line: 'rgba(255,255,255,.45)', accent: '#fff', brand2: '#fff', gold: '#fff' }
+  dark:  { clear: false, text: '#fff', soft: '#c9ced8', muted: '#8b93a3', faint: '#6b7384', line: 'rgba(255,255,255,.10)', stroke: 'rgba(255,255,255,.14)', accent: '#aab4ff', brand2: '#8b9aff' },
+  clear: { clear: true,  text: '#fff', soft: '#fff', muted: 'rgba(255,255,255,.88)', faint: 'rgba(255,255,255,.82)', line: 'rgba(255,255,255,.9)', stroke: '#fff', accent: '#fff', brand2: '#fff' }
 };
 let T = THEMES.dark;
 
@@ -1109,7 +1109,7 @@ function fit(ctx, text, maxW, size, weight = 800, min = 18) {
   let s = size;
   ctx.font = font(s, weight);
   while (ctx.measureText(text).width > maxW && s > min) { s -= 2; ctx.font = font(s, weight); }
-  if (ctx.measureText(text).width > maxW) {           // ainda grande: corta com reticências
+  if (ctx.measureText(text).width > maxW) {
     let t = text;
     while (t.length > 1 && ctx.measureText(t + '…').width > maxW) t = t.slice(0, -1);
     return t + '…';
@@ -1117,137 +1117,130 @@ function fit(ctx, text, maxW, size, weight = 800, min = 18) {
   return text;
 }
 function spaced(ctx, px) { if ('letterSpacing' in ctx) ctx.letterSpacing = px + 'px'; }
-async function drawAvatar(ctx, p, x, y, d) {
+function strokeNow(ctx) { ctx.lineWidth = LW; ctx.strokeStyle = T.stroke; ctx.stroke(); }
+function hline(ctx, x, y, w) { ctx.fillStyle = T.line; ctx.fillRect(x, y - LW / 2, w, LW); }
+function text(ctx, s, x, y, size, weight, color, align = 'left', base = 'middle', ls = 0) {
+  ctx.font = font(size, weight); ctx.fillStyle = color; ctx.textAlign = align; ctx.textBaseline = base; spaced(ctx, ls);
+  ctx.fillText(s, x, y); spaced(ctx, 0);
+}
+// avatar com contorno na mesma espessura
+async function drawAvatar(ctx, p, cx, cy, d, ringColor) {
+  const x = cx - d / 2, y = cy - d / 2;
   ctx.save();
-  ctx.beginPath(); ctx.arc(x + d / 2, y + d / 2, d / 2, 0, Math.PI * 2); ctx.closePath(); ctx.clip();
+  ctx.beginPath(); ctx.arc(cx, cy, d / 2, 0, Math.PI * 2); ctx.closePath(); ctx.clip();
   let img = null;
   if (safePhoto(p.photo)) img = await loadImage(p.photo).catch(() => null);
   if (img) ctx.drawImage(img, x, y, d, d);
   else {
-    if (T.clear) { ctx.fillStyle = 'rgba(255,255,255,.12)'; ctx.fillRect(x, y, d, d); }
-    else { ctx.fillStyle = COLORS[(p.id - 1) % COLORS.length]; ctx.fillRect(x, y, d, d); }
-    ctx.fillStyle = '#fff'; ctx.font = font(Math.round(d * 0.36), 800);
-    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillText(initials(p.name), x + d / 2, y + d / 2 + d * 0.02);
+    ctx.fillStyle = T.clear ? 'rgba(255,255,255,.12)' : COLORS[(p.id - 1) % COLORS.length]; ctx.fillRect(x, y, d, d);
+    text(ctx, initials(p.name), cx, cy + d * 0.02, Math.round(d * 0.36), 800, '#fff', 'center');
   }
   ctx.restore();
-  if (T.clear) { ctx.beginPath(); ctx.arc(x + d / 2, y + d / 2, d / 2, 0, Math.PI * 2); ctx.lineWidth = Math.max(3, d * 0.025); ctx.strokeStyle = '#fff'; ctx.stroke(); }
+  ctx.beginPath(); ctx.arc(cx, cy, d / 2 - LW / 2, 0, Math.PI * 2);
+  ctx.lineWidth = LW; ctx.strokeStyle = T.clear ? '#fff' : (ringColor || 'rgba(255,255,255,.18)'); ctx.stroke();
 }
-function ring(ctx, cx, cy, r, color) {
-  ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
-  if (T.clear) { ctx.lineWidth = 5; ctx.strokeStyle = '#fff'; ctx.stroke(); }
-  else { ctx.fillStyle = color; ctx.fill(); }
+function panel(ctx, x, y, w, h, r, fill) {
+  rr(ctx, x + LW / 2, y + LW / 2, w - LW, h - LW, r);
+  if (!T.clear && fill) { ctx.fillStyle = fill; ctx.fill(); }
+  strokeNow(ctx);
 }
-function panel(ctx, x, y, w, h, r, fill, stroke) {
-  rr(ctx, x, y, w, h, r);
-  if (T.clear) { ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(255,255,255,.9)'; ctx.stroke(); return; }
-  ctx.fillStyle = fill; ctx.fill(); if (stroke) { ctx.lineWidth = 2; ctx.strokeStyle = stroke; ctx.stroke(); }
-}
-function drawRate(ctx, r, xRight, yMid, h, fs, center) {
+// caixa da nota com largura fixa, centrada em cx
+function drawRate(ctx, r, cx, cy, w, h, fs) {
   const txt = r.toFixed(1).replace('.', ',');
-  ctx.font = font(fs, 800);
-  const w = Math.max(h * 1.55, ctx.measureText(txt).width + h * 0.6);
-  if (center) xRight += w / 2;
-  rr(ctx, xRight - w, yMid - h / 2, w, h, h * 0.24);
-  if (T.clear) { ctx.lineWidth = Math.max(3, h * 0.05); ctx.strokeStyle = '#fff'; ctx.stroke(); }
+  rr(ctx, cx - w / 2 + LW / 2, cy - h / 2 + LW / 2, w - LW, h - LW, h * 0.24);
+  if (T.clear) { ctx.lineWidth = LW; ctx.strokeStyle = '#fff'; ctx.stroke(); }
   else { ctx.fillStyle = rateColor(r); ctx.fill(); }
-  ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.fillText(txt, xRight - w / 2, yMid + fs * 0.04);
-  return w;
+  text(ctx, txt, cx, cy + fs * 0.04, fs, 800, '#fff', 'center');
 }
 async function cardBase(ctx, rightTop, rightBottom) {
   ctx.clearRect(0, 0, CARD_W, CARD_H);
   const ball = await getBall();
   ctx.save();
-  if (T.clear) { ctx.shadowColor = 'rgba(0,0,0,.28)'; ctx.shadowBlur = 12; ctx.shadowOffsetY = 2; }
   if (T.clear) {
-    rr(ctx, 3, 3, CARD_W - 6, CARD_H - 6, CARD_R); ctx.lineWidth = 4; ctx.strokeStyle = '#fff';
-    ctx.shadowColor = 'rgba(0,0,0,.35)'; ctx.shadowBlur = 14; ctx.stroke();
+    ctx.shadowColor = 'rgba(0,0,0,.28)'; ctx.shadowBlur = 12; ctx.shadowOffsetY = 2;
+    rr(ctx, LW / 2, LW / 2, CARD_W - LW, CARD_H - LW, CARD_R); ctx.lineWidth = LW; ctx.strokeStyle = '#fff'; ctx.stroke();
   } else {
-  rr(ctx, 0, 0, CARD_W, CARD_H, CARD_R); ctx.clip();
-  const bg = ctx.createLinearGradient(0, 0, CARD_W, CARD_H);
-  bg.addColorStop(0, '#151a2b'); bg.addColorStop(.55, '#0f1218'); bg.addColorStop(1, '#0b0d12');
-  ctx.fillStyle = bg; ctx.fillRect(0, 0, CARD_W, CARD_H);
-  const glow = ctx.createRadialGradient(260, 120, 0, 260, 120, 900);
-  glow.addColorStop(0, 'rgba(55,77,245,.42)'); glow.addColorStop(1, 'rgba(55,77,245,0)');
-  ctx.fillStyle = glow; ctx.fillRect(0, 0, CARD_W, CARD_H);
-  if (ball) { ctx.globalAlpha = .045; ctx.drawImage(ball, CARD_W - 520, CARD_H - 470, 720, 720); ctx.globalAlpha = 1; }
-  rr(ctx, 70, 62, 76, 76, 20); ctx.fillStyle = '#374df5'; ctx.fill();
+    rr(ctx, 0, 0, CARD_W, CARD_H, CARD_R); ctx.clip();
+    const bg = ctx.createLinearGradient(0, 0, CARD_W, CARD_H);
+    bg.addColorStop(0, '#151a2b'); bg.addColorStop(.55, '#0f1218'); bg.addColorStop(1, '#0b0d12');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, CARD_W, CARD_H);
+    const glow = ctx.createRadialGradient(240, 100, 0, 240, 100, 800);
+    glow.addColorStop(0, 'rgba(55,77,245,.42)'); glow.addColorStop(1, 'rgba(55,77,245,0)');
+    ctx.fillStyle = glow; ctx.fillRect(0, 0, CARD_W, CARD_H);
+    if (ball) { ctx.globalAlpha = .045; ctx.drawImage(ball, CARD_W - 470, CARD_H - 420, 640, 640); ctx.globalAlpha = 1; }
+    rr(ctx, M, 44, 64, 64, 17); ctx.fillStyle = '#374df5'; ctx.fill();
   }
-  // cabeçalho
-  if (ball) ctx.drawImage(ball, T.clear ? 72 : 78, T.clear ? 64 : 70, T.clear ? 72 : 60, T.clear ? 72 : 60);
-  ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic'; spaced(ctx, 1);
-  ctx.font = font(44, 800); ctx.fillStyle = T.text; ctx.fillText('SOFA', 170, 116);
+  // cabeçalho: logo, marca e rodada alinhados na mesma linha (y = 76)
+  const hy = 76;
+  if (ball) T.clear ? ctx.drawImage(ball, M, hy - 32, 64, 64) : ctx.drawImage(ball, M + 7, hy - 25, 50, 50);
+  ctx.font = font(40, 800); spaced(ctx, 1);
   const w = ctx.measureText('SOFA').width;
-  ctx.fillStyle = T.brand2; ctx.fillText('QUINTA', 170 + w, 116);
-  ctx.textAlign = 'right';
-  spaced(ctx, 3); ctx.font = font(26, 800); ctx.fillStyle = T.accent; ctx.fillText(rightTop.toUpperCase(), CARD_W - 70, 92);
-  spaced(ctx, 0); ctx.font = font(26, 500); ctx.fillStyle = T.muted; ctx.fillText(rightBottom, CARD_W - 70, 130);
+  text(ctx, 'SOFA', M + 86, hy + 2, 40, 800, T.text, 'left', 'middle', 1);
+  text(ctx, 'QUINTA', M + 86 + w + 1, hy + 2, 40, 800, T.brand2, 'left', 'middle', 1);
+  ctx.font = font(26, 800); spaced(ctx, 3);
+  const rt = rightTop.toUpperCase(), rtw = ctx.measureText(rt).width;
+  spaced(ctx, 0);
+  text(ctx, rt, CARD_W - M, hy + 1, 26, 800, T.accent, 'right', 'middle', 3);
+  text(ctx, rightBottom, CARD_W - M - rtw - 26, hy + 1, 26, 500, T.muted, 'right');
+  ctx.fillStyle = T.muted; ctx.beginPath(); ctx.arc(CARD_W - M - rtw - 13, hy + 1, 3.5, 0, Math.PI * 2); ctx.fill();
 }
 function cardFooter(ctx, left) {
-  ctx.fillStyle = T.clear ? T.line : 'rgba(255,255,255,.08)'; ctx.fillRect(70, 872, CARD_W - 140, 2);
-  ctx.textBaseline = 'middle'; spaced(ctx, 0);
-  ctx.textAlign = 'left'; ctx.font = font(28, 600); ctx.fillStyle = T.soft; ctx.fillText(left, 70, 930);
-  ctx.textAlign = 'right'; ctx.font = font(26, 600); ctx.fillStyle = T.faint;
-  ctx.fillText((location.host && !/^(localhost|127\.)/.test(location.host)) ? location.host : 'sofaquinta', CARD_W - 70, 930);
+  const fy = CARD_H - 58;
+  hline(ctx, M, CARD_H - 112, CARD_W - 2 * M);
+  text(ctx, left, M, fy, 28, 600, T.soft);
+  text(ctx, (location.host && !/^(localhost|127\.)/.test(location.host)) ? location.host : 'sofaquinta', CARD_W - M, fy, 26, 600, T.faint, 'right');
   ctx.restore();
 }
 function roundInfo(d) {
   const ds = dates();
   return { n: ds.length - ds.indexOf(d), lines: roundLines(d) };
 }
+// área útil entre cabeçalho e rodapé
+const TOP = 138, BOT = CARD_H - 140;
 
 async function drawRoundCard(ctx, d) {
   const { n, lines } = roundInfo(d);
   await cardBase(ctx, `Rodada ${n}`, fmtLong(d));
   const tops = craques(lines), top = tops[0] || lines[0];
-  // painel de destaque (maior nota), sem selo
-  const px = 70, py = 180, pw = 560, ph = 650;
+  // destaque (maior nota) — mesma altura da lista
+  const px = M, py = TOP, pw = 470, ph = BOT - TOP;
   const pg = ctx.createLinearGradient(px, py, px, py + ph);
   pg.addColorStop(0, 'rgba(55,77,245,.22)'); pg.addColorStop(1, 'rgba(55,77,245,.04)');
-  panel(ctx, px, py, pw, ph, 40, pg, 'rgba(139,154,255,.35)');
+  panel(ctx, px, py, pw, ph, 36, pg);
   const cx = px + pw / 2;
-  ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
   if (top) {
-    const D = 270, ay = py + 62;
-    ring(ctx, cx, ay + D / 2, D / 2 + 8, 'rgba(55,77,245,.85)');
-    await drawAvatar(ctx, top.p, cx - D / 2, ay, D);
+    const D = 176;
+    const o = (ph - 420) / 2;   // centraliza o bloco no painel
+    await drawAvatar(ctx, top.p, cx, py + o + D / 2, D, 'rgba(139,154,255,.9)');
     const nm = tops.length > 1 ? tops.map(t => first(t.p.name)).join(' e ') : top.p.name;
-    ctx.fillStyle = '#fff'; ctx.textAlign = 'center';
-    ctx.fillText(fit(ctx, nm, pw - 70, 56, 800, 30), cx, py + 418);
-    ctx.font = font(30, 600); ctx.fillStyle = T.soft;
-    ctx.fillText(`${plural(top.goals, 'gol', 'gols')} · ${plural(top.assists, 'assistência', 'assistências')}`, cx, py + 472);
-    ctx.font = font(22, 700); ctx.fillStyle = T.muted; spaced(ctx, 3); ctx.fillText('NOTA', cx, py + 540); spaced(ctx, 0);
-    drawRate(ctx, top.r, cx, py + 592, 80, 54, true);
+    ctx.font = font(46, 800);
+    text(ctx, fit(ctx, nm, pw - 60, 46, 800, 28), cx, py + o + 234, ctx.font.match(/(\d+)px/)[1] * 1, 800, T.text, 'center');
+    text(ctx, `${plural(top.goals, 'gol', 'gols')} · ${plural(top.assists, 'assist.', 'assist.')}`, cx, py + o + 284, 30, 700, T.soft, 'center');
+    drawRate(ctx, top.r, cx, py + o + 377, 176, 86, 60);
   }
-  // lista
-  const lx = 690, lw = CARD_W - 70 - lx, ly = 190;
-  ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
-  spaced(ctx, 3); ctx.font = font(22, 800); ctx.fillStyle = T.muted;
-  ctx.fillText('JOGADOR', lx, ly + 24);
-  ctx.textAlign = 'right';
-  ctx.fillText('NOTA', lx + lw, ly + 24); ctx.fillText('A', lx + lw - 190, ly + 24); ctx.fillText('G', lx + lw - 270, ly + 24);
-  spaced(ctx, 0);
-  const rows = lines.slice(0, 7), avail = 620, rh = Math.min(122, avail / Math.max(rows.length, 1));
-  const ad = Math.min(80, rh - 26);
+  // lista: colunas com centro fixo, cabeçalho e valores na mesma vertical
+  const lx = px + pw + 56, rx = CARD_W - M, lw = rx - lx;
+  const colN = rx - 70, colA = rx - 210, colG = rx - 320;
+  const hy = TOP + 18;
+  text(ctx, 'JOGADOR', lx, hy, 22, 800, T.muted, 'left', 'middle', 3);
+  text(ctx, 'G', colG, hy, 22, 800, T.muted, 'center', 'middle', 3);
+  text(ctx, 'A', colA, hy, 22, 800, T.muted, 'center', 'middle', 3);
+  text(ctx, 'NOTA', colN, hy, 22, 800, T.muted, 'center', 'middle', 3);
+  const y0 = TOP + 44, avail = BOT - y0;
+  const rows = lines.slice(0, 6), rh = Math.min(avail / 5, avail / Math.max(rows.length, 1));
+  const ad = Math.min(64, rh - 22), vs = Math.min(50, rh * 0.52);
   for (let i = 0; i < rows.length; i++) {
-    const l = rows[i], y = ly + 50 + i * rh, mid = y + rh / 2;
-    ctx.fillStyle = T.line; ctx.fillRect(lx, y, lw, 2);
-    ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.font = font(28, 800);
-    ctx.fillStyle = T.clear ? '#fff' : i === 0 ? '#f5b400' : i === 1 ? '#b8c0cc' : i === 2 ? '#d0894b' : '#8b93a3';
-    ctx.fillText(String(i + 1), lx + 18, mid);
-    await drawAvatar(ctx, l.p, lx + 48, mid - ad / 2, ad);
-    ctx.textAlign = 'left'; ctx.fillStyle = T.text;
-    ctx.fillText(fit(ctx, l.p.name, lw - 48 - ad - 24 - 330, 36, 700, 22), lx + 48 + ad + 22, mid + 1);
-    ctx.textAlign = 'right'; ctx.font = font(38, 800); ctx.fillStyle = '#fff';
-    ctx.fillText(String(l.goals), lx + lw - 270, mid + 1);
-    ctx.fillText(String(l.assists), lx + lw - 190, mid + 1);
-    drawRate(ctx, l.r, lx + lw, mid, 58, 32);
+    const l = rows[i], y = y0 + i * rh, mid = y + rh / 2;
+    hline(ctx, lx, y, lw);
+    text(ctx, String(i + 1), lx + 14, mid, 28, 800, T.clear ? '#fff' : i === 0 ? '#f5b400' : i === 1 ? '#b8c0cc' : i === 2 ? '#d0894b' : '#8b93a3', 'center');
+    await drawAvatar(ctx, l.p, lx + 44 + ad / 2, mid, ad);
+    ctx.font = font(34, 700);
+    text(ctx, fit(ctx, l.p.name, colG - 60 - (lx + 60 + ad), 34, 700, 22), lx + 60 + ad, mid + 1, +ctx.font.match(/(\d+)px/)[1], 700, T.text);
+    text(ctx, String(l.goals), colG, mid + 2, vs, 800, '#fff', 'center');
+    text(ctx, String(l.assists), colA, mid + 2, vs, 800, '#fff', 'center');
+    drawRate(ctx, l.r, colN, mid, 128, Math.min(64, rh - 26), Math.min(40, rh * 0.42));
   }
-  if (lines.length > rows.length) {
-    ctx.textAlign = 'left'; ctx.font = font(24, 600); ctx.fillStyle = T.muted;
-    ctx.fillText(`+${lines.length - rows.length} jogadores`, lx, ly + 50 + rows.length * rh + 30);
-  }
+  if (lines.length > rows.length) text(ctx, `+${lines.length - rows.length} jogadores`, rx, BOT + 4, 22, 600, T.muted, 'right', 'top');
   const g = lines.reduce((t, l) => t + l.goals, 0), a = lines.reduce((t, l) => t + l.assists, 0);
   cardFooter(ctx, `${plural(g, 'gol', 'gols')}  ·  ${plural(a, 'assistência', 'assistências')}  ·  ${plural(lines.length, 'jogador', 'jogadores')}`);
 }
@@ -1256,28 +1249,20 @@ async function drawPlayerCard(ctx, d, pid) {
   const { n, lines } = roundInfo(d);
   const l = lines.find(x => x.player_id === pid);
   await cardBase(ctx, `Rodada ${n}`, fmtLong(d));
-  // foto grande
-  const D = 470, x0 = 110, y0 = 245;
-  ring(ctx, x0 + D / 2, y0 + D / 2, D / 2 + 10, 'rgba(55,77,245,.85)');
-  await drawAvatar(ctx, l.p, x0, y0, D);
-  // texto
-  const tx = 680, tw = CARD_W - 70 - tx;
-  ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
-  ctx.fillStyle = '#fff';
-  ctx.fillText(fit(ctx, l.p.name, tw, 88, 800, 44), tx, 340);
-  // stats
-  const sy = 420, sh = 380, gap = 26, sw = (tw - gap * 2) / 3;
+  // foto, nome e blocos: tudo centrado na mesma linha horizontal
+  const midY = (TOP + BOT) / 2, D = BOT - TOP;
+  await drawAvatar(ctx, l.p, M + D / 2, midY, D, 'rgba(55,77,245,.95)');
+  const tx = M + D + 64, tw = CARD_W - M - tx;
+  ctx.font = font(64, 800);
+  text(ctx, fit(ctx, l.p.name, tw, 64, 800, 36), tx, TOP + 34, +ctx.font.match(/(\d+)px/)[1], 800, T.text);
+  const gap = 24, sw = (tw - gap * 2) / 3, sy = TOP + 86, sh = BOT - sy, cy = sy + sh / 2 + 22;
   const blocks = [['GOLS', String(l.goals)], ['ASSIST.', String(l.assists)], ['NOTA', null]];
   for (let i = 0; i < 3; i++) {
-    const bx = tx + i * (sw + gap);
-    panel(ctx, bx, sy, sw, sh, 32, 'rgba(255,255,255,.055)', 'rgba(255,255,255,.08)');
-    ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
-    spaced(ctx, 3); ctx.font = font(24, 800); ctx.fillStyle = T.muted; ctx.fillText(blocks[i][0], bx + sw / 2, sy + 70); spaced(ctx, 0);
-    if (blocks[i][1] != null) {
-      ctx.font = font(190, 800); ctx.fillStyle = '#fff'; ctx.fillText(blocks[i][1], bx + sw / 2, sy + 300);
-    } else {
-      drawRate(ctx, l.r, bx + sw / 2, sy + 225, 118, 80, true);
-    }
+    const bx = tx + i * (sw + gap), bc = bx + sw / 2;
+    panel(ctx, bx, sy, sw, sh, 30, 'rgba(255,255,255,.05)');
+    text(ctx, blocks[i][0], bc, sy + 44, 24, 800, T.muted, 'center', 'middle', 3);
+    if (blocks[i][1] != null) text(ctx, blocks[i][1], bc, cy + 6, 170, 800, '#fff', 'center');
+    else drawRate(ctx, l.r, bc, cy, Math.min(sw - 40, 250), 136, 96);
   }
   const s = aggregate().find(x => x.id === pid);
   cardFooter(ctx, s ? `Temporada: ${plural(s.g, 'gol', 'gols')} · ${plural(s.a, 'assistência', 'assistências')} · ${plural(s.j, 'jogo', 'jogos')}` : '');
