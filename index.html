@@ -1201,27 +1201,24 @@ async function drawRoundCard(ctx, d) {
   const { n, lines } = roundInfo(d);
   await cardBase(ctx, `Rodada ${n}`, fmtLong(d));
   const tops = craques(lines), top = tops[0] || lines[0];
-  // painel do craque
+  // painel de destaque (maior nota), sem selo
   const px = 70, py = 180, pw = 560, ph = 650;
   const pg = ctx.createLinearGradient(px, py, px, py + ph);
-  pg.addColorStop(0, 'rgba(245,180,0,.20)'); pg.addColorStop(1, 'rgba(245,180,0,.03)');
-  panel(ctx, px, py, pw, ph, 40, pg, 'rgba(245,180,0,.45)');
+  pg.addColorStop(0, 'rgba(55,77,245,.22)'); pg.addColorStop(1, 'rgba(55,77,245,.04)');
+  panel(ctx, px, py, pw, ph, 40, pg, 'rgba(139,154,255,.35)');
   const cx = px + pw / 2;
   ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
-  spaced(ctx, 4); ctx.font = font(24, 800); ctx.fillStyle = T.gold;
-  ctx.fillText(tops.length ? '★ CRAQUE DA RODADA' : '★ DESTAQUE', cx, py + 68);
-  spaced(ctx, 0);
   if (top) {
-    const D = 250;
-    ring(ctx, cx, py + 110 + D / 2, D / 2 + 8, 'rgba(245,180,0,.55)');
-    await drawAvatar(ctx, top.p, cx - D / 2, py + 110, D);
+    const D = 270, ay = py + 62;
+    ring(ctx, cx, ay + D / 2, D / 2 + 8, 'rgba(55,77,245,.85)');
+    await drawAvatar(ctx, top.p, cx - D / 2, ay, D);
     const nm = tops.length > 1 ? tops.map(t => first(t.p.name)).join(' e ') : top.p.name;
     ctx.fillStyle = '#fff'; ctx.textAlign = 'center';
-    ctx.fillText(fit(ctx, nm, pw - 70, 54, 800, 30), cx, py + 438);
+    ctx.fillText(fit(ctx, nm, pw - 70, 56, 800, 30), cx, py + 418);
     ctx.font = font(30, 600); ctx.fillStyle = T.soft;
-    ctx.fillText(`${plural(top.goals, 'gol', 'gols')} · ${plural(top.assists, 'assistência', 'assistências')}`, cx, py + 490);
-    ctx.font = font(22, 700); ctx.fillStyle = T.muted; spaced(ctx, 3); ctx.fillText('NOTA', cx, py + 552); spaced(ctx, 0);
-    drawRate(ctx, top.r, cx, py + 600, 76, 52, true);
+    ctx.fillText(`${plural(top.goals, 'gol', 'gols')} · ${plural(top.assists, 'assistência', 'assistências')}`, cx, py + 472);
+    ctx.font = font(22, 700); ctx.fillStyle = T.muted; spaced(ctx, 3); ctx.fillText('NOTA', cx, py + 540); spaced(ctx, 0);
+    drawRate(ctx, top.r, cx, py + 592, 80, 54, true);
   }
   // lista
   const lx = 690, lw = CARD_W - 70 - lx, ly = 190;
@@ -1258,27 +1255,16 @@ async function drawRoundCard(ctx, d) {
 async function drawPlayerCard(ctx, d, pid) {
   const { n, lines } = roundInfo(d);
   const l = lines.find(x => x.player_id === pid);
-  const tops = new Set(craques(lines).map(x => x.player_id));
-  const pos = lines.indexOf(l) + 1;
   await cardBase(ctx, `Rodada ${n}`, fmtLong(d));
   // foto grande
   const D = 470, x0 = 110, y0 = 245;
-  ring(ctx, x0 + D / 2, y0 + D / 2, D / 2 + 10, tops.has(pid) ? 'rgba(245,180,0,.7)' : 'rgba(55,77,245,.8)');
+  ring(ctx, x0 + D / 2, y0 + D / 2, D / 2 + 10, 'rgba(55,77,245,.85)');
   await drawAvatar(ctx, l.p, x0, y0, D);
   // texto
   const tx = 680, tw = CARD_W - 70 - tx;
   ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
-  if (tops.has(pid)) {
-    spaced(ctx, 4); ctx.font = font(24, 800);
-    const label = '★ CRAQUE DA RODADA', lw2 = ctx.measureText(label).width + 44;
-    panel(ctx, tx, 205, lw2, 54, 27, 'rgba(245,180,0,.16)', 'rgba(245,180,0,.5)');
-    ctx.fillStyle = T.gold; ctx.fillText(label, tx + 22, 241); spaced(ctx, 0);
-  } else {
-    spaced(ctx, 4); ctx.font = font(24, 800); ctx.fillStyle = T.muted;
-    ctx.fillText(`${pos}º DA RODADA`, tx, 241); spaced(ctx, 0);
-  }
   ctx.fillStyle = '#fff';
-  ctx.fillText(fit(ctx, l.p.name, tw, 88, 800, 44), tx, 350);
+  ctx.fillText(fit(ctx, l.p.name, tw, 88, 800, 44), tx, 340);
   // stats
   const sy = 420, sh = 380, gap = 26, sw = (tw - gap * 2) / 3;
   const blocks = [['GOLS', String(l.goals)], ['ASSIST.', String(l.assists)], ['NOTA', null]];
