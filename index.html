@@ -76,7 +76,8 @@ section.enter{animation:enter .22s var(--ease)}
 .press:active{transform:scale(.985)}
 
 /* Leaders ----------------------------------------------------------- */
-.leaders{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:10px}
+.leaders{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:10px}
+@media(max-width:560px){.leaders{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .leader{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 12px;min-width:0;text-align:left}
 .leader .label{font-size:10px;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .leader .who{display:flex;align-items:center;gap:8px;margin-top:10px;min-width:0}
@@ -103,7 +104,7 @@ section.enter{animation:enter .22s var(--ease)}
 .seg button.on{background:var(--accent-soft);color:var(--accent-text)}
 
 /* Table ------------------------------------------------------------- */
-.thead,.row{display:grid;grid-template-columns:26px minmax(0,1fr) 30px 30px 30px 38px 44px;align-items:center;gap:6px;padding:0 14px}
+.thead,.row{display:grid;grid-template-columns:26px minmax(0,1fr) 30px 30px 30px 30px 38px 44px;align-items:center;gap:6px;padding:0 14px}
 .thead{height:34px;font-size:11px;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:.04em}
 .thead span,.row .c{text-align:center}
 .row{height:58px;border-top:1px solid var(--line);width:100%;text-align:left;transition:background .12s}
@@ -136,13 +137,14 @@ img.av{object-fit:cover;background:var(--surface2)}
 .rhead p{font-size:12px;color:var(--muted);margin-top:3px}
 .rtotal{text-align:right;font-size:12px;color:var(--muted);white-space:nowrap;flex:none}
 .rtotal b{display:block;font-size:20px;color:var(--text);font-weight:800;letter-spacing:-.02em}
-.rrow{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:12px;align-items:center;padding:10px 14px;border-top:1px solid var(--line);width:100%;text-align:left}
+.rrow{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto auto;gap:10px;align-items:center;padding:10px 14px;border-top:1px solid var(--line);width:100%;text-align:left}
 button.rrow:active{background:var(--surface2)}
+.rrow .pl{gap:7px}
 .rrow .pl b{font-size:14px}
 .chip{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
 .chip b{color:var(--text);font-weight:700}
-.mvp{font-size:10px;font-weight:800;letter-spacing:.05em;color:var(--gold);background:rgba(245,180,0,.12);padding:3px 6px;border-radius:5px;flex:none}
-.edit-tag{font-size:10px;font-weight:700;color:var(--accent-text);background:var(--accent-soft);padding:3px 6px;border-radius:5px;flex:none}
+.mvp{font-size:11px;font-weight:800;color:var(--gold);background:rgba(245,180,0,.12);padding:2px 6px;border-radius:5px;flex:none}
+.edit-tag{display:grid;place-items:center;width:22px;height:20px;color:var(--accent-text);background:var(--accent-soft);border-radius:5px;flex:none}
 .absent{padding:10px 14px;border-top:1px solid var(--line);font-size:12px;color:var(--faint)}
 
 /* Form -------------------------------------------------------------- */
@@ -155,14 +157,14 @@ button.rrow:active{background:var(--surface2)}
 .inp:focus{border-color:var(--accent)}
 input[type=date].inp{line-height:48px}
 input[type=date]::-webkit-date-and-time-value{text-align:left}
-.steppers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.stepper{background:var(--surface2);border-radius:14px;padding:12px;text-align:center;min-width:0}
-.stepper .label{font-size:11px}
-.stepper .ctl{display:flex;align-items:center;justify-content:space-between;margin-top:8px;gap:4px}
+.steppers{display:grid;gap:8px}
+.stepper{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--surface2);border-radius:14px;padding:10px 10px 10px 16px;min-width:0}
+.stepper .label{font-size:12px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stepper .ctl{display:flex;align-items:center;gap:6px;flex:none}
 .stepper button{width:46px;height:46px;border-radius:12px;background:var(--surface);border:1px solid var(--line);font-size:22px;font-weight:500;line-height:1;flex:none;transition:transform .08s,background .12s}
 .stepper button:active:not(:disabled){transform:scale(.92);background:var(--line)}
 .stepper button:disabled{opacity:.35}
-.stepper output{font-size:36px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;min-width:0}
+.stepper output{font-size:32px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;min-width:52px;text-align:center}
 .stepper output.bump{animation:bump .18s var(--ease)}
 @keyframes bump{50%{transform:scale(1.15)}}
 .preview{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:12px;background:var(--surface2);margin-bottom:16px;font-size:13px;color:var(--muted)}
@@ -189,7 +191,7 @@ input[type=date]::-webkit-date-and-time-value{text-align:left}
 .mylist .ch small{font-size:12px;color:var(--muted);white-space:nowrap}
 .mylist .ch h3{white-space:nowrap}
 .sgrid .rate{font-size:14px;margin-top:2px}
-.mine-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto auto;gap:12px;align-items:center;width:100%;text-align:left;
+.mine-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto auto auto;gap:10px;align-items:center;width:100%;text-align:left;
   padding:12px 14px;border-top:1px solid var(--line);font-size:13.5px;transition:background .15s}
 .mine-row:active{background:var(--surface2)}
 .mine-row.sel{background:var(--accent-soft)}
@@ -220,8 +222,8 @@ input[type=date]::-webkit-date-and-time-value{text-align:left}
 .sgrid div + div{border-left:1px solid var(--line)}
 .sgrid b{display:block;font-size:22px;font-weight:800;letter-spacing:-.02em}
 .sgrid span{font-size:11px;color:var(--muted);font-weight:600}
-.hist{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:12px;align-items:center;padding:12px 18px;border-top:1px solid var(--line);font-size:13.5px;width:100%;text-align:left}
-.hist.editable{grid-template-columns:minmax(0,1fr) auto auto auto auto}
+.hist{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto auto;gap:10px;align-items:center;padding:12px 18px;border-top:1px solid var(--line);font-size:13.5px;width:100%;text-align:left}
+.hist.editable{grid-template-columns:minmax(0,1fr) auto auto auto auto auto}
 .hist:first-of-type{border-top:0}
 .hist .d{color:#c9ced8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hist .go{font-size:12px;font-weight:700;color:var(--accent-text)}
@@ -251,18 +253,24 @@ button.hist:active{background:var(--surface2)}
 .toast.err{background:var(--danger);color:#fff}
 
 @media(max-width:420px){
-  .thead,.row{grid-template-columns:22px minmax(0,1fr) 24px 24px 24px 32px 40px;gap:4px;padding:0 10px}
+  .thead,.row{grid-template-columns:20px minmax(0,1fr) 22px 22px 22px 22px 30px 40px;gap:4px;padding:0 10px}
   .row .pl{gap:8px}
   .leader{padding:12px 10px}
   .leader .num{font-size:22px}
   .live span{display:none}
   .brand{gap:10px}
-  .mine-row,.hist.editable{gap:9px}
+  .mine-row,.hist,.hist.editable,.rrow{gap:8px}
 }
 @media(max-width:370px){
-  .stepper{padding:10px 8px}
-  .stepper button{width:40px;height:40px;font-size:20px}
-  .stepper output{font-size:30px}
+  .stepper{padding:8px 8px 8px 12px;gap:6px}
+  .stepper .label{font-size:11px;letter-spacing:.03em}
+  .stepper .ctl{gap:4px}
+  .stepper button{width:42px;height:42px;font-size:20px}
+  .stepper output{font-size:28px;min-width:38px}
+  .thead,.row{grid-template-columns:20px minmax(0,1fr) 22px 22px 24px 30px 40px}
+  .thead > :nth-child(3),.row > :nth-child(3){display:none}
+  .craque .tag span{display:none}
+  .craque .line .av{display:none}
   .fbody{padding:14px}
 }
 @media(max-width:350px){
@@ -277,10 +285,10 @@ button.hist:active{background:var(--surface2)}
 .shbody{padding:0 18px 18px}
 .shseg{padding:0 0 12px}
 .shprev{border-radius:14px;background:repeating-conic-gradient(#171a21 0 25%,#1c2029 0 50%) 0 0/20px 20px;padding:10px;min-height:120px;display:grid;place-items:center}
+.shprev.clear{background:linear-gradient(135deg,#3a6b8f,#c7743f 55%,#2d3b2a)}
 .shprev img{display:block;width:100%;aspect-ratio:1600/800;border-radius:10px;transition:opacity .2s;background:transparent}
 .shbtns{display:grid;gap:8px;margin-top:14px}
 .btn.alt{background:var(--surface2);color:var(--text)}
-.shprev.clear{background:linear-gradient(135deg,#3a6b8f,#c7743f 55%,#2d3b2a)}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -314,10 +322,11 @@ button.hist:active{background:var(--surface2)}
         <button class="on" data-mode="geral">Geral</button>
         <button data-mode="gols">Artilharia</button>
         <button data-mode="assist">Assistências</button>
+        <button data-mode="desarmes">Desarmes</button>
       </div>
       <div class="thead" id="thead"></div>
       <div id="table"><div class="skel"></div><div class="skel"></div><div class="skel"></div></div>
-      <div class="foot">Geral ordena por gols + assistências, depois gols, depois nota média. Nota da rodada: 6,5 + 0,9 por gol + 0,6 por assistência (máx. 10).</div>
+      <div class="foot">Geral ordena por gols + assistências, depois gols, depois nota média. Nota da rodada: 6,5 + 0,9 por gol + 0,6 por assistência + 0,15 por desarme (desarmes valem no máximo +1,5). Teto 10.</div>
     </div>
   </section>
 
@@ -361,6 +370,10 @@ button.hist:active{background:var(--surface2)}
               <span class="label">Assistências</span>
               <div class="ctl"><button type="button" data-f="assists" data-d="-1" aria-label="Menos assistências">−</button><output id="assists">0</output><button type="button" data-f="assists" data-d="1" aria-label="Mais assistências">+</button></div>
             </div>
+            <div class="stepper">
+              <span class="label">Desarmes</span>
+              <div class="ctl"><button type="button" data-f="tackles" data-d="-1" aria-label="Menos desarmes">−</button><output id="tackles">0</output><button type="button" data-f="tackles" data-d="1" aria-label="Mais desarmes">+</button></div>
+            </div>
           </div>
         </div>
         <div class="preview"><span>Sua nota na rodada</span><span id="preview"></span></div>
@@ -403,10 +416,10 @@ const DEMO_PASS = '123';
 const COLORS = ['#374df5', '#e2466c', '#0fa37f', '#e8871e', '#8b5cf6', '#0ea5e9', '#d946ef', '#65a30d'];
 const HEIC_LIB = 'https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js';
 const TABS = ['ranking', 'rodadas', 'lancar'];
-const MAX = 30;
+const MAX = 30, MAXT = 40;
 
 const state = { players: [], stats: [], mode: 'geral', tab: 'ranking', loaded: false, modalId: null };
-const form = { date: '', goals: 0, assists: 0 };
+const form = { date: '', goals: 0, assists: 0, tackles: 0 };
 let busy = false;
 
 /* ---------- utilidades ---------- */
@@ -434,7 +447,9 @@ const norm = s => String(s).trim().toLowerCase().normalize('NFD').replace(/[̀-�
 const first = n => n.split(' ')[0];
 const nextFrame = () => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
 
-const nota = (g, a) => Math.min(10, 6.5 + g * 0.9 + a * 0.6);
+// Nota da rodada: base 6,5 · gol +0,9 · assistência +0,6 · desarme +0,15 (desarmes somam no máx. +1,5 = 10 desarmes) · teto 10
+const TACKLE_W = 0.15, TACKLE_CAP = 10;
+const nota = (g, a, d = 0) => Math.min(10, 6.5 + g * 0.9 + a * 0.6 + Math.min(d || 0, TACKLE_CAP) * TACKLE_W);
 const rateColor = r => r >= 9 ? '#374df5' : r >= 8 ? '#00adc4' : r >= 7 ? '#00c424' : r >= 6.5 ? '#c9a100' : r >= 6 ? '#ed7e07' : '#dc0c00';
 const badge = r => r == null ? '<span class="rate none">–</span>' : `<span class="rate" style="background:${rateColor(r)}">${r.toFixed(1).replace('.', ',')}</span>`;
 const STAR = '<svg width="18" height="18" viewBox="0 0 24 24" fill="#f5b400"><path d="M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9z"/></svg>';
@@ -470,7 +485,7 @@ const api = {
     }
     const [p, s] = await Promise.all([
       sb.from('players').select('id,name,username,photo').order('id'),
-      sb.from('stats').select('player_id,match_date,goals,assists').order('match_date', { ascending: false })
+      sb.from('stats').select('*').order('match_date', { ascending: false })
     ]);
     if (p.error) throw p.error;
     if (s.error) throw s.error;
@@ -489,15 +504,15 @@ const api = {
     if (!row) throw new Error('Usuário ou senha incorretos');
     return { id: row.player_id, name: row.player_name };
   },
-  async save(match_date, goals, assists) {
+  async save(match_date, goals, assists, tackles) {
     if (!DEMO) need();
     if (DEMO) {
       const stats = demoStats().filter(s => !(s.player_id === session.id && s.match_date === match_date));
-      stats.push({ player_id: session.id, match_date, goals, assists });
+      stats.push({ player_id: session.id, match_date, goals, assists, tackles });
       store.set('sofaquinta-demo', JSON.stringify(stats));
       return;
     }
-    const { error } = await sb.rpc('lancar_rodada', { p_player_id: session.id, p_date: match_date, p_goals: goals, p_assists: assists, p_pin: session.pass });
+    const { error } = await sb.rpc('lancar_rodada', { p_player_id: session.id, p_date: match_date, p_goals: goals, p_assists: assists, p_pin: session.pass, p_tackles: tackles });
     if (error) throw new Error(error.message);
   },
   async remove(match_date) {
@@ -529,7 +544,7 @@ async function reload() {
     const data = await api.load();
     if (my !== loadSeq) return;               // resposta antiga: ignora
     state.players = data.players;
-    state.stats = data.stats.map(s => ({ ...s, goals: +s.goals, assists: +s.assists }));
+    state.stats = data.stats.map(s => ({ player_id: s.player_id, match_date: s.match_date, goals: +s.goals || 0, assists: +s.assists || 0, tackles: +s.tackles || 0 }));
     const firstLoad = !state.loaded;
     state.loaded = true;
     setLive(true);
@@ -556,34 +571,36 @@ document.addEventListener('click', ev => { if (ev.target.closest('[data-retry]')
 
 /* ---------- cálculos ---------- */
 function aggregate() {
-  const map = new Map(state.players.map(p => [p.id, { ...p, j: 0, g: 0, a: 0, sum: 0 }]));
+  const map = new Map(state.players.map(p => [p.id, { ...p, j: 0, g: 0, a: 0, d: 0, sum: 0 }]));
   for (const s of state.stats) {
     const m = map.get(s.player_id); if (!m) continue;
-    m.j++; m.g += s.goals; m.a += s.assists; m.sum += nota(s.goals, s.assists);
+    m.j++; m.g += s.goals; m.a += s.assists; m.d += s.tackles; m.sum += nota(s.goals, s.assists, s.tackles);
   }
   return [...map.values()].map(m => ({ ...m, ga: m.g + m.a, media: m.j ? m.sum / m.j : null }));
 }
 const SORT = {
   geral: (a, b) => b.ga - a.ga || b.g - a.g || (b.media || 0) - (a.media || 0) || a.name.localeCompare(b.name),
   gols: (a, b) => b.g - a.g || a.j - b.j || a.name.localeCompare(b.name),
-  assist: (a, b) => b.a - a.a || a.j - b.j || a.name.localeCompare(b.name)
+  assist: (a, b) => b.a - a.a || a.j - b.j || a.name.localeCompare(b.name),
+  desarmes: (a, b) => b.d - a.d || a.j - b.j || a.name.localeCompare(b.name)
 };
 const TIEKEY = {
   geral: r => `${r.ga}|${r.g}|${(r.media || 0).toFixed(2)}`,
   gols: r => `${r.g}|${r.j}`,
-  assist: r => `${r.a}|${r.j}`
+  assist: r => `${r.a}|${r.j}`,
+  desarmes: r => `${r.d}|${r.j}`
 };
 const dates = () => [...new Set(state.stats.map(s => s.match_date))].sort().reverse();
 function roundLines(d) {
   const byId = new Map(state.players.map(p => [p.id, p]));
   return state.stats.filter(s => s.match_date === d)
-    .map(s => ({ ...s, r: nota(s.goals, s.assists), p: byId.get(s.player_id) }))
+    .map(s => ({ ...s, r: nota(s.goals, s.assists, s.tackles), p: byId.get(s.player_id) }))
     .filter(s => s.p)
     .sort((a, b) => b.r - a.r || b.goals - a.goals || a.p.name.localeCompare(b.p.name));
 }
 function craques(lines) {
   const top = lines[0];
-  if (!top || top.goals + top.assists === 0) return [];
+  if (!top || top.goals + top.assists + top.tackles === 0) return [];
   return lines.filter(l => l.r === top.r && l.goals === top.goals);
 }
 
@@ -614,10 +631,11 @@ function renderLeaders(rows) {
   const card = (label, p, val, unit) => p && val
     ? `<button class="leader press" data-player="${p.id}"><div class="label">${label}</div><div class="num">${val}<small>${unit}</small></div><div class="who">${avatar(p, 'sm')}<span class="name">${esc(p.name)}</span></div></button>`
     : `<div class="leader"><div class="label">${label}</div><div class="num" style="color:var(--faint)">–</div><div class="who"><span class="name" style="color:var(--faint)">Sem dados</span></div></div>`;
-  const g = best('g'), a = best('a'), m = best('media', r => r.j > 0);
+  const g = best('g'), a = best('a'), x = best('d'), m = best('media', r => r.j > 0);
   $('#leaders').innerHTML =
     card('Artilheiro', g, g && g.g, g && g.g === 1 ? 'gol' : 'gols') +
     card('Garçom', a, a && a.a, a && a.a === 1 ? 'assist.' : 'assists.') +
+    card('Xerife', x, x && x.d, x && x.d === 1 ? 'desarme' : 'desarmes') +
     card('Melhor nota', m, m && m.media ? m.media.toFixed(1).replace('.', ',') : 0, '');
 }
 
@@ -634,16 +652,16 @@ function renderCraque(ds) {
     <span class="star">${STAR}</span>
     <span class="info">
       <span class="tag">CRAQUE DA RODADA<span>${fmtShort(d)}</span></span>
-      <span class="line">${list.length === 1 ? avatar(c.p, 'sm') : ''}<b>${names}</b><small>${c.goals} G · ${c.assists} A</small></span>
+      <span class="line">${list.length === 1 ? avatar(c.p, 'sm') : ''}<b>${names}</b><small>${c.goals} G · ${c.assists} A · ${c.tackles} D</small></span>
     </span>
     ${badge(c.r)}`;
 }
 
 function renderTable(rows) {
   const mode = state.mode;
-  const hl = { geral: 'ga', gols: 'g', assist: 'a' }[mode];
+  const hl = { geral: 'ga', gols: 'g', assist: 'a', desarmes: 'd' }[mode];
   const h = k => k === hl ? ' hl' : '';
-  $('#thead').innerHTML = `<span>#</span><span style="text-align:left">Jogador</span><span>J</span><span class="${h('g')}">G</span><span class="${h('a')}">A</span><span class="${h('ga')}">G+A</span><span>Nota</span>`;
+  $('#thead').innerHTML = `<span>#</span><span style="text-align:left">Jogador</span><span>J</span><span class="${h('g')}">G</span><span class="${h('a')}">A</span><span class="${h('d')}">D</span><span class="${h('ga')}">G+A</span><span>Nota</span>`;
   rows.sort(SORT[mode]);
   let pos = 0, prev = null;
   $('#table').innerHTML = rows.map((r, i) => {
@@ -652,7 +670,7 @@ function renderTable(rows) {
     return `<button class="row${mine ? ' mine' : ''}" data-player="${r.id}">
       <span class="pos p${pos}">${pos}</span>
       <span class="pl">${avatar(r)}<b>${esc(r.name)}</b></span>
-      <span class="c">${r.j}</span><span class="c${h('g')}">${r.g}</span><span class="c${h('a')}">${r.a}</span><span class="c${h('ga')}">${r.ga}</span>
+      <span class="c">${r.j}</span><span class="c${h('g')}">${r.g}</span><span class="c${h('a')}">${r.a}</span><span class="c${h('d')}">${r.d}</span><span class="c${h('ga')}">${r.ga}</span>
       <span class="c">${badge(r.media)}</span>
     </button>`;
   }).join('');
@@ -668,18 +686,19 @@ function renderRounds(ds) {
     const mvp = new Set(craques(lines).map(l => l.player_id));
     const present = new Set(lines.map(l => l.player_id));
     const absent = state.players.filter(p => !present.has(p.id)).map(p => esc(p.name));
-    const g = lines.reduce((t, l) => t + l.goals, 0), a = lines.reduce((t, l) => t + l.assists, 0);
+    const g = lines.reduce((t, l) => t + l.goals, 0), a = lines.reduce((t, l) => t + l.assists, 0), dd = lines.reduce((t, l) => t + l.tackles, 0);
     return `<div class="card">
       <div class="rhead">
         <div><h3>${fmtLong(d)}</h3><p>Rodada ${ds.length - idx} · ${plural(lines.length, 'jogador', 'jogadores')}</p></div>
-        <div class="rtotal"><b>${g}</b>${g === 1 ? 'gol' : 'gols'} · ${a} assist.</div>
+        <div class="rtotal"><b>${g}</b>${g === 1 ? 'gol' : 'gols'} · ${a} A · ${dd} D</div>
       </div>
       ${lines.map(l => {
         const mine = session && session.id === l.player_id;
         return `<button class="rrow" ${mine ? `data-edit="${d}"` : `data-player="${l.player_id}"`}>
-          <span class="pl">${avatar(l.p, 'sm')}<b>${esc(l.p.name)}</b>${mvp.has(l.player_id) ? '<span class="mvp">CRAQUE</span>' : ''}${mine ? '<span class="edit-tag">Editar</span>' : ''}</span>
+          <span class="pl">${avatar(l.p, 'sm')}<b>${esc(l.p.name)}</b>${mvp.has(l.player_id) ? '<span class="mvp" title="Craque da rodada">★</span>' : ''}${mine ? '<span class="edit-tag" title="Editar"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg></span>' : ''}</span>
           <span class="chip"><b>${l.goals}</b> G</span>
           <span class="chip"><b>${l.assists}</b> A</span>
+          <span class="chip"><b>${l.tackles}</b> D</span>
           ${badge(l.r)}
         </button>`;
       }).join('')}
@@ -695,10 +714,11 @@ function syncFromExisting() {
   const e = existing();
   form.goals = e ? e.goals : 0;
   form.assists = e ? e.assists : 0;
+  form.tackles = e ? e.tackles : 0;
 }
 function dirty() {
   const e = existing();
-  return !e || e.goals !== form.goals || e.assists !== form.assists;
+  return !e || e.goals !== form.goals || e.assists !== form.assists || e.tackles !== form.tackles;
 }
 
 function renderForm() {
@@ -710,16 +730,17 @@ function renderForm() {
   if ($('#date').value !== form.date) $('#date').value = form.date;
   $('#goals').textContent = form.goals;
   $('#assists').textContent = form.assists;
+  $('#tackles').textContent = form.tackles;
   document.querySelectorAll('.stepper button').forEach(b => {
     const v = form[b.dataset.f], d = +b.dataset.d;
-    b.disabled = busy || (d < 0 ? v <= 0 : v >= MAX);
+    b.disabled = busy || (d < 0 ? v <= 0 : v >= (b.dataset.f === 'tackles' ? MAXT : MAX));
   });
-  $('#preview').innerHTML = badge(nota(form.goals, form.assists));
+  $('#preview').innerHTML = badge(nota(form.goals, form.assists, form.tackles));
   const e = existing(), okDate = validDate(form.date) && form.date <= iso(new Date());
   const notice = $('#existing');
   if (!validDate(form.date)) { notice.hidden = false; notice.textContent = 'Escolha a data da pelada.'; }
   else if (form.date > iso(new Date())) { notice.hidden = false; notice.textContent = 'Essa data ainda não chegou.'; }
-  else if (e) { notice.hidden = false; notice.textContent = `Editando o lançamento de ${fmtShort(form.date)}: estava ${plural(e.goals, 'gol', 'gols')} e ${plural(e.assists, 'assistência', 'assistências')}.`; }
+  else if (e) { notice.hidden = false; notice.textContent = `Editando o lançamento de ${fmtShort(form.date)}: estava ${plural(e.goals, 'gol', 'gols')}, ${plural(e.assists, 'assistência', 'assistências')} e ${plural(e.tackles, 'desarme', 'desarmes')}.`; }
   else notice.hidden = true;
   $('#del').hidden = !e;
   $('#del').disabled = busy;
@@ -738,7 +759,7 @@ function renderMyList() {
   box.innerHTML = `<div class="ch"><h3>Seus lançamentos</h3><small>Toque para editar</small></div>` + (mine.length
     ? mine.map(s => `<button type="button" class="mine-row${s.match_date === form.date ? ' sel' : ''}" data-edit="${s.match_date}">
         <span class="d">${fmtShort(s.match_date)}</span>
-        <span class="chip"><b>${s.goals}</b> G</span><span class="chip"><b>${s.assists}</b> A</span>${badge(nota(s.goals, s.assists))}
+        <span class="chip"><b>${s.goals}</b> G</span><span class="chip"><b>${s.assists}</b> A</span><span class="chip"><b>${s.tackles}</b> D</span>${badge(nota(s.goals, s.assists, s.tackles))}
         <span class="go">${s.match_date === form.date ? 'Editando' : 'Editar'}</span>
       </button>`).join('')
     : '<div class="empty" style="padding:22px 16px">Você ainda não lançou nenhuma rodada.</div>');
@@ -755,7 +776,7 @@ $('#date').addEventListener('input', onDate);
 
 document.querySelectorAll('.stepper button').forEach(b => b.addEventListener('click', () => {
   if (busy) return;
-  const f = b.dataset.f, nv = Math.max(0, Math.min(MAX, form[f] + +b.dataset.d));
+  const f = b.dataset.f, nv = Math.max(0, Math.min(f === 'tackles' ? MAXT : MAX, form[f] + +b.dataset.d));
   if (nv === form[f]) return;
   form[f] = nv;
   renderForm();
@@ -794,7 +815,7 @@ $('#form').addEventListener('submit', async ev => {
   const wasEdit = !!existing();
   setBusy(true, $('#submit'), 'Salvando…');
   try {
-    await api.save(form.date, form.goals, form.assists);
+    await api.save(form.date, form.goals, form.assists, form.tackles);
     await reload();
     setBusy(false);
     toast(wasEdit ? 'Alterações salvas!' : 'Números lançados!');
@@ -850,7 +871,7 @@ function logout(expired) {
   session = null;
   store.del('sofaquinta-session');
   if (state.modalId) closePlayer();
-  form.goals = 0; form.assists = 0;
+  form.goals = 0; form.assists = 0; form.tackles = 0;
   render();
   if (expired) { toast('Sessão expirada, entre de novo', true); go('lancar'); }
   else toast('Você saiu');
@@ -1014,12 +1035,12 @@ function renderPlayer(id) {
     <div class="sgrid">
       <div><b>${p.g}</b><span>Gols</span></div>
       <div><b>${p.a}</b><span>Assist.</span></div>
-      <div><b>${p.ga}</b><span>G+A</span></div>
+      <div><b>${p.d}</b><span>Desarmes</span></div>
       <div><b>${badge(p.media)}</b><span>Nota média</span></div>
     </div>
     ${hist.length ? hist.map(s => mine
-      ? `<button class="hist editable" data-edit="${s.match_date}"><span class="d">${fmtDate(s.match_date)}</span><span class="chip"><b>${s.goals}</b> G</span><span class="chip"><b>${s.assists}</b> A</span>${badge(nota(s.goals, s.assists))}<span class="go">Editar</span></button>`
-      : `<div class="hist"><span class="d">${fmtDate(s.match_date)}</span><span class="chip"><b>${s.goals}</b> G</span><span class="chip"><b>${s.assists}</b> A</span>${badge(nota(s.goals, s.assists))}</div>`
+      ? `<button class="hist editable" data-edit="${s.match_date}"><span class="d">${fmtDate(s.match_date)}</span><span class="chip"><b>${s.goals}</b> G</span><span class="chip"><b>${s.assists}</b> A</span><span class="chip"><b>${s.tackles}</b> D</span>${badge(nota(s.goals, s.assists, s.tackles))}<span class="go">Editar</span></button>`
+      : `<div class="hist"><span class="d">${fmtDate(s.match_date)}</span><span class="chip"><b>${s.goals}</b> G</span><span class="chip"><b>${s.assists}</b> A</span><span class="chip"><b>${s.tackles}</b> D</span>${badge(nota(s.goals, s.assists, s.tackles))}</div>`
     ).join('') : '<div class="empty">Ainda sem jogos registrados.</div>'}
     ${mine ? `<div class="sactions">
       <button data-photo>${p.photo ? 'Trocar foto' : 'Adicionar foto'}</button>
@@ -1215,16 +1236,19 @@ async function drawRoundCard(ctx, d) {
     const nm = tops.length > 1 ? tops.map(t => first(t.p.name)).join(' e ') : top.p.name;
     ctx.font = font(46, 800);
     text(ctx, fit(ctx, nm, pw - 60, 46, 800, 28), cx, py + o + 234, ctx.font.match(/(\d+)px/)[1] * 1, 800, T.text, 'center');
-    text(ctx, `${plural(top.goals, 'gol', 'gols')} · ${plural(top.assists, 'assist.', 'assist.')}`, cx, py + o + 284, 30, 700, T.soft, 'center');
+    ctx.font = font(30, 700);
+    const st = fit(ctx, `${plural(top.goals, 'gol', 'gols')} · ${top.assists} assist. · ${plural(top.tackles, 'desarme', 'desarmes')}`, pw - 50, 30, 700, 20);
+    text(ctx, st, cx, py + o + 284, +ctx.font.match(/(\d+)px/)[1], 700, T.soft, 'center');
     drawRate(ctx, top.r, cx, py + o + 377, 176, 86, 60);
   }
   // lista: colunas com centro fixo, cabeçalho e valores na mesma vertical
   const lx = px + pw + 56, rx = CARD_W - M, lw = rx - lx;
-  const colN = rx - 70, colA = rx - 210, colG = rx - 320;
+  const colN = rx - 70, colD = rx - 196, colA = rx - 286, colG = rx - 376;
   const hy = TOP + 18;
   text(ctx, 'JOGADOR', lx, hy, 22, 800, T.muted, 'left', 'middle', 3);
   text(ctx, 'G', colG, hy, 22, 800, T.muted, 'center', 'middle', 3);
   text(ctx, 'A', colA, hy, 22, 800, T.muted, 'center', 'middle', 3);
+  text(ctx, 'D', colD, hy, 22, 800, T.muted, 'center', 'middle', 3);
   text(ctx, 'NOTA', colN, hy, 22, 800, T.muted, 'center', 'middle', 3);
   const y0 = TOP + 44, avail = BOT - y0;
   const rows = lines.slice(0, 6), rh = Math.min(avail / 5, avail / Math.max(rows.length, 1));
@@ -1238,11 +1262,12 @@ async function drawRoundCard(ctx, d) {
     text(ctx, fit(ctx, l.p.name, colG - 60 - (lx + 60 + ad), 34, 700, 22), lx + 60 + ad, mid + 1, +ctx.font.match(/(\d+)px/)[1], 700, T.text);
     text(ctx, String(l.goals), colG, mid + 2, vs, 800, '#fff', 'center');
     text(ctx, String(l.assists), colA, mid + 2, vs, 800, '#fff', 'center');
+    text(ctx, String(l.tackles), colD, mid + 2, vs, 800, '#fff', 'center');
     drawRate(ctx, l.r, colN, mid, 128, Math.min(64, rh - 26), Math.min(40, rh * 0.42));
   }
   if (lines.length > rows.length) text(ctx, `+${lines.length - rows.length} jogadores`, rx, BOT + 4, 22, 600, T.muted, 'right', 'top');
-  const g = lines.reduce((t, l) => t + l.goals, 0), a = lines.reduce((t, l) => t + l.assists, 0);
-  cardFooter(ctx, `${plural(g, 'gol', 'gols')}  ·  ${plural(a, 'assistência', 'assistências')}  ·  ${plural(lines.length, 'jogador', 'jogadores')}`);
+  const g = lines.reduce((t, l) => t + l.goals, 0), a = lines.reduce((t, l) => t + l.assists, 0), dd = lines.reduce((t, l) => t + l.tackles, 0);
+  cardFooter(ctx, `${plural(g, 'gol', 'gols')}  ·  ${plural(a, 'assistência', 'assistências')}  ·  ${plural(dd, 'desarme', 'desarmes')}  ·  ${plural(lines.length, 'jogador', 'jogadores')}`);
 }
 
 async function drawPlayerCard(ctx, d, pid) {
@@ -1255,17 +1280,17 @@ async function drawPlayerCard(ctx, d, pid) {
   const tx = M + D + 64, tw = CARD_W - M - tx;
   ctx.font = font(64, 800);
   text(ctx, fit(ctx, l.p.name, tw, 64, 800, 36), tx, TOP + 34, +ctx.font.match(/(\d+)px/)[1], 800, T.text);
-  const gap = 24, sw = (tw - gap * 2) / 3, sy = TOP + 86, sh = BOT - sy, cy = sy + sh / 2 + 22;
-  const blocks = [['GOLS', String(l.goals)], ['ASSIST.', String(l.assists)], ['NOTA', null]];
-  for (let i = 0; i < 3; i++) {
+  const gap = 20, sw = (tw - gap * 3) / 4, sy = TOP + 86, sh = BOT - sy, cy = sy + sh / 2 + 22;
+  const blocks = [['GOLS', String(l.goals)], ['ASSIST.', String(l.assists)], ['DESARMES', String(l.tackles)], ['NOTA', null]];
+  for (let i = 0; i < 4; i++) {
     const bx = tx + i * (sw + gap), bc = bx + sw / 2;
     panel(ctx, bx, sy, sw, sh, 30, 'rgba(255,255,255,.05)');
-    text(ctx, blocks[i][0], bc, sy + 44, 24, 800, T.muted, 'center', 'middle', 3);
-    if (blocks[i][1] != null) text(ctx, blocks[i][1], bc, cy + 6, 170, 800, '#fff', 'center');
-    else drawRate(ctx, l.r, bc, cy, Math.min(sw - 40, 250), 136, 96);
+    text(ctx, blocks[i][0], bc, sy + 44, 22, 800, T.muted, 'center', 'middle', 2);
+    if (blocks[i][1] != null) text(ctx, blocks[i][1], bc, cy + 6, blocks[i][1].length > 1 ? 120 : 150, 800, '#fff', 'center');
+    else drawRate(ctx, l.r, bc, cy, sw - 32, 112, 76);
   }
   const s = aggregate().find(x => x.id === pid);
-  cardFooter(ctx, s ? `Temporada: ${plural(s.g, 'gol', 'gols')} · ${plural(s.a, 'assistência', 'assistências')} · ${plural(s.j, 'jogo', 'jogos')}` : '');
+  cardFooter(ctx, s ? `Temporada: ${plural(s.g, 'gol', 'gols')} · ${plural(s.a, 'assistência', 'assistências')} · ${plural(s.d, 'desarme', 'desarmes')} · ${plural(s.j, 'jogo', 'jogos')}` : '');
 }
 
 const share = { date: null, kind: 'round', style: store.get('sofaquinta-card-style') === 'dark' ? 'dark' : 'clear', blob: null, url: null };
